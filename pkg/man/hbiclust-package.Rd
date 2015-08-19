@@ -24,8 +24,6 @@ TESTING DESCRIPTION.
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-library(hbiclust)
-
 ranges <- matrix(c(5.0, 7.5,
 				   12.0, 20.0,
 				   3.0, 15.8,

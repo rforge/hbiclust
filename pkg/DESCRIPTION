@@ -7,5 +7,7 @@ Author: Alexandre ARSENAULT, Sajjad GHAEMI, Vahid PARTOVI NIA
 Maintainer: Vahid PARTOVI NIA <vahid.partovinia@polymtl.ca>
 Depends: R (>= 3.2.1), rgl
 Description: Build and plot a 2D or a 3D hierarchical biclustering.
-License:  GPL (>= 2)
+License: GPL (>= 2)
 URL: http://hbiclust.r-forge.r-project.org/
+NeedsCompilation: yes
+Packaged: 2015-08-19 14:54:25 UTC; alex

@@ -7,7 +7,7 @@ CPP_FILES := $(wildcard *.cpp)
 OBJECTS := $(notdir $(CPP_FILES:.cpp=.o))
 
 hbiclust.so: $(OBJECTS)
-	R CMD SHLIB -std=c++11 $(OBJECTS) -o hbiclust.so 
+	R CMD SHLIB -std=c++11 -lstdc++ $(OBJECTS) -o hbiclust.so 
 
 
 %.o: %.cpp
