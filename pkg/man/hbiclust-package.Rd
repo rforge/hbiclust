@@ -24,40 +24,23 @@ TESTING DESCRIPTION.
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-ranges <- matrix(c(5.0, 7.5,
-				   12.0, 20.0,
-				   3.0, 15.8,
-				   3.0, 30.5,
-				   20.0, 21.2,
-				   8.0, 12.0,
-				   5.0, 16.0,
-				   6.0, 9.2,
-				   15.0, 20.0,
-				   10.0, 11.0), nrow = 10, ncol = 2, byrow = TRUE)
+row=3
+col=3
 
-vec = c();
+a=cbind2(matrix( rnorm(row*col,mean=0,sd=1), row, col) , matrix( rnorm(row*col,mean=5,sd=1), row, col));
+a=cbind2(a, matrix( rnorm(row*col,mean=5,sd=1), row, col));
+b=cbind2(matrix( rnorm(row*col,mean=-15,sd=1), row, col) , matrix( rnorm(row*col,mean=0,sd=1), row, col));
+b=cbind2(b, matrix( rnorm(row*col,mean=15,sd=1), row, col));
+d=cbind2(matrix( rnorm(row*col,mean=-25,sd=1), row, col) , matrix( rnorm(row*col,mean=0,sd=1), row, col));
+d=cbind2(d, matrix( rnorm(row*col,mean=25,sd=1), row, col));
+c=rbind2(a,b);
+c=rbind2(c,d);
+row=9
+col=9
+b<-Dendrogram3D(c)
+forestogram(b, line_width = 3.0, 
+            interpolate_tree_colors = FALSE, 
+            cut_base_alpha = 0.4);
+hbiclust.plot(b);
 
-for(i in seq(1, 10))
-{
-	vec = c(vec, runif(20, ranges[i, 1], ranges[i, 2]));
-}
-
-data <- matrix(vec, nrow = 10, ncol = 20, byrow = TRUE)
-row_names <- seq(1, 10, 1);
-col_names <- seq(1, 20, 1);
-dimnames(data) <- list(row_names, col_names)
-
-# Calculate hierarchical biclustering.
-v <- hbiclust(data);
-
-# Draw forestogram.
-forestogram(v, cut_height = 11.0, 
-			line_width = 3.0, 
-			interpolate_tree_colors = FALSE, 
-			# cut_base_contour_width = 2, 
-			cut_base_alpha = 0.4,
-			draw_only_from_cut = TRUE);
-
-# Draw two dimension dendrogram.
-hbiclust.plot(v, cut_height = 11);
 }
