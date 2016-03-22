@@ -43,7 +43,7 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
+<p> 	<img src="http://2.bp.blogspot.com/-BkGONyjrgCY/VUfG-pcFN9I/AAAAAAAAACE/qDRnM__nKwU/s320/snapshot.png" alt="snapshot" width=500/> </p>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
