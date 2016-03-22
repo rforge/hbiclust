@@ -349,7 +349,7 @@ hbiclust.plot <- function(clust_info,
                           n_cluster_color = 0)
 {
     # Using nbcairo or cairo instead of Xlib add the support for transparency.
-    x11(type = "nbcairo", antialias = "subpixel");
+    #x11(type = "nbcairo", antialias = "subpixel");
     plot.new();
 
     margin = c(0.07, 0.04);
