@@ -237,8 +237,7 @@ void BiClust::process(const R::Matrix2D<double>& data)
     std::vector<IntPair> mergeMatrix;
     
     
-    int merge_index = 1;
-    int i = 0;
+    int merge_index = 1;    
     
     
 //    R::Print("SIZE : ", clusters.size());

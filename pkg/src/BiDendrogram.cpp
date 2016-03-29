@@ -17,8 +17,8 @@ Dendrogram::Dendrogram(R::Matrix2D<double> merge,
                        R::Matrix2D<double>& line_points, // Return value.
                        R::Vector<double>& answer_limits):
 _merge(merge),
-_order(order),
 _height(height),
+_order(order),
 _line_points(line_points),
 _answer_limits(answer_limits),
 _normHeight(_height.size()),
