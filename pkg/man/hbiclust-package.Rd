@@ -12,7 +12,7 @@
 TESTING DESCRIPTION.
 }
 
-\author{ Alexandre Arsenault }
+\author{ Mohammad Sajjad Ghaemi }
 
 \references{
 ~~ Literature or other references for background information ~~
@@ -37,10 +37,5 @@ c=rbind2(a,b);
 c=rbind2(c,d);
 row=9
 col=9
-b<-Dendrogram3D(c)
-forestogram(b, line_width = 3.0, 
-            interpolate_tree_colors = FALSE, 
-            cut_base_alpha = 0.4);
-hbiclust.plot(b);
-
+b<-Dendrogram3D(c, method="ward")
 }

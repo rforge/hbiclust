@@ -102,7 +102,7 @@ void Extract(Link *l, int *order, int ind)
 }
 
 extern "C" {
-void Agl(int *row_col, int *merge, double *height, int *dim, int *row_order, int *col_order, double *data)
+void Agl(int *row_col, int *method, int *merge, double *height, int *dim, int *row_order, int *col_order, double *data)
 {
 	int row=dim[0];
 	int col=dim[1];
@@ -181,10 +181,35 @@ void Agl(int *row_col, int *merge, double *height, int *dim, int *row_order, int
 				{
 					double dik=rDist[rind[0]][k];
 					double djk=rDist[rind[1]][k];
-					// rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
-					//rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*rDist[rind[0]][rind[1]]; //Centroid
 					ak=rsize[k];
-					rDist[rind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*rDist[rind[0]][rind[1]]; //Ward
+					switch(method[0])
+					{
+						case 1:
+							rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
+							break;
+						
+						case 2:
+							rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*rDist[rind[0]][rind[1]]; //Centroid
+							break;
+
+						case 3:
+							rDist[rind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*rDist[rind[0]][rind[1]]; //Ward
+							break;
+
+						case 4:
+							rDist[rind[1]][k]= .5*dik+.5*djk-.5*abs(dik-djk);//Single
+							break;
+
+						case 5:
+							rDist[rind[1]][k]= .5*dik+.5*djk+.5*abs(dik-djk);//Complete
+							break;
+						default:
+							rDist[rind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*rDist[rind[0]][rind[1]]; //Ward
+
+					}
+					//rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
+					//rDist[rind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*rDist[rind[0]][rind[1]]; //Centroid
+					//rDist[rind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*rDist[rind[0]][rind[1]]; //Ward
 					rDist[k][rind[1]]=rDist[rind[1]][k];
 				}
 			for(int i=0; i<col; i++)
@@ -218,10 +243,36 @@ void Agl(int *row_col, int *merge, double *height, int *dim, int *row_order, int
 				{
 					double dik=cDist[cind[0]][k];
 					double djk=cDist[cind[1]][k];
-					// cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
-					//cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*cDist[cind[0]][cind[1]]; //Centroid
 					ak=csize[k];
-					cDist[cind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*cDist[cind[0]][cind[1]]; //Ward
+					switch(method[0])
+					{
+						case 1:
+							cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
+							break;
+						
+						case 2:
+							cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*cDist[cind[0]][cind[1]]; //Centroid
+							break;
+
+						case 3:
+							cDist[cind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*cDist[cind[0]][cind[1]]; //Ward
+							break;
+
+						case 4:
+							cDist[cind[1]][k]= .5*dik+.5*djk-.5*abs(dik-djk);//Single
+							break;
+
+						case 5:
+							cDist[cind[1]][k]= .5*dik+.5*djk+.5*abs(dik-djk);//Complete
+							break;
+
+						default:
+							cDist[cind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*cDist[cind[0]][cind[1]]; //Ward
+
+					}
+					//cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk;//Average
+					//cDist[cind[1]][k]=(ai/(ai+aj))*dik+(aj/(ai+aj))*djk-(ai*aj/pow((aj+ai),2))*cDist[cind[0]][cind[1]]; //Centroid
+					//cDist[cind[1]][k]=((ai+ak)/(ai+aj+ak))*dik+((aj+ak)/(ai+aj+ak))*djk-(ak/(aj+ai+ak))*cDist[cind[0]][cind[1]]; //Ward
 					cDist[k][cind[1]]=cDist[cind[1]][k];
 				}
 			for(int i=0; i<row; i++)
