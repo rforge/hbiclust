@@ -72,7 +72,7 @@ CombineRowAndColMergeAndHeight <- function(size, row, col, row_height, col_heigh
     return(merge_matrix)
 }
 
-hbiclust <- function(data)
+hbiclust_Alex <- function(data)
 {
     d <- dist(data, method = "euclidean");
     v <- hclust(d, method = "complete");

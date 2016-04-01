@@ -1,5 +1,5 @@
 # export hbiclust function
-export(hbiclust, hbiclust.plot, forestogram, Dendrogram3D)
+export(hbiclust, hbiclust.plot, forestogram)
 
 # import some functions from other packages
 importFrom(rgl, open3d, rgl.clear, rgl.light, view3d, segments3d, shade3d, qmesh3d, par3d, rgl.projection, rgl.window2user, rgl.setMouseCallbacks, lines3d, quads3d, snapshot3d)

@@ -1,4 +1,4 @@
-Dendrogram3D <-function(x, method="ward")
+hbiclust <-function(x, method="ward")
 {
   row=dim(x)[1]
   col=dim(x)[2]
@@ -46,13 +46,20 @@ Dendrogram3D <-function(x, method="ward")
                "dist.method"="euclidean");
   class(cdend)<-"hclust";
   ch=BIC(data, rdend, cdend, b$row_col, row, col, b$height)
-  forestogram(b, cut_height = ch, 
-              line_width = 3.0, 
-              interpolate_tree_colors = FALSE, 
-              cut_base_alpha = 0.4,
-              draw_only_from_cut =F);
-  hbiclust.plot(b, cut_height = ch);
-  return(b)
+  remove(b)
+  hbi <- list("row_col" = as.numeric(out$row_col),
+            "merge" = matrix(as.numeric(out$merge), nrow=(row+col-2),ncol=2,byrow=FALSE),
+            "height" = out$height,
+            "dim" = out$dim,
+            "row_order" = out$row_order,
+            "col_order" = out$col_order,
+            "row_name" = rownames(data),
+            "col_name" = colnames(data),
+            "data" = data,
+            "hcut"=ch);
+  
+  class(hbi) <- "hbiclust";
+  return(hbi)
 }
 BIC <- function(data, rdend, cdend, row_col, row, col, height)
 {
@@ -63,7 +70,7 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
   while((trow*tcol)>1)
   {        
     bc=0;
-    if((row_col[i]==0) && (trow>1))        
+    if((row_col[i]==0) && (trow>1))
     {            
       trow=trow-1;
       rind=cutree(rdend, k=trow);
@@ -99,7 +106,7 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
     }
     bc=bc+((trow*tcol)*log10(row*col));
     #print(c(i, trow, tcol))
-    if(bc<minBIC)
+    if(bc<minBIC && trow>1 && tcol>1)
     {
       minBIC=bc;
       ch = height[i];

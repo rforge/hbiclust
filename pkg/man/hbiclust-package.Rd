@@ -37,5 +37,11 @@ c=rbind2(a,b);
 c=rbind2(c,d);
 row=9
 col=9
-b<-Dendrogram3D(c, method="ward")
+b<-hbiclust(c, method="ward")
+forestogram(b, cut_height = b$hcut, 
+            line_width = 3.0, 
+            interpolate_tree_colors = FALSE, 
+            cut_base_alpha = 0.4,
+            draw_only_from_cut =FALSE);
+hbiclust.plot(b, cut_height = b$hcut);
 }
