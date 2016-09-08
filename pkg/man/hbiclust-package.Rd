@@ -43,5 +43,6 @@ forestogram(b, cut_height = b$hcut,
             interpolate_tree_colors = FALSE, 
             cut_base_alpha = 0.4,
             draw_only_from_cut =FALSE);
+cutforest(b, 1:3)
 hbiclust.plot(b, cut_height = b$hcut);
 }
