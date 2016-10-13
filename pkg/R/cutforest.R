@@ -55,7 +55,9 @@ cutforest <- function(b, k = NULL, h = NULL)
   else
     col.group <- data.frame(b$col_name, cind)
   
-  groups <- list(row.group, col.group)
+  CCE=ColClusterEffect(b, rind, cind)
+    
+  groups <- list(row.group, col.group, CCE)
   class(groups) <- "bigroup";
   return(groups)
 }
