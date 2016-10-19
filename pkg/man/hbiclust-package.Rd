@@ -24,6 +24,7 @@ TESTING DESCRIPTION.
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
+set.seed(150)
 row=3
 col=3
 
