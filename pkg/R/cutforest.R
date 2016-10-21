@@ -58,8 +58,17 @@ cutforest <- function(b, k = NULL, h = NULL)
   CI=clusterimp(b, rind, cind)
     
   groups <- list("Row grouping"=row.group, "Col grouping"= col.group, "Clusters impact"=CI)
-  barplot(CI$row_likelihood[1,], names.arg = b$row_name, las=2, col = heat.colors(12))
-  barplot(CI$col_likelihood[1,], names.arg = b$col_name, las=2, col = heat.colors(12))
+  
+  strl=sort(CI$row_likelihood[1,], method = "shell", index.return = TRUE)
+  rname = b$row_name[strl$ix]
+  if(is.null(rname))
+    rname = strl$ix
+  barplot(strl$x, names.arg = rname, las=2, col = heat.colors(12), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
+  stcl=sort(CI$col_likelihood[1,], method = "shell", index.return = TRUE)
+  cname = b$col_name[stcl$ix]
+  if(is.null(cname))
+    cname = stcl$ix
+  barplot(stcl$x, names.arg = cname, las=2, col = heat.colors(12), main = "columns impact", xlab = "column names", ylab = "Log Bayes factor")
   class(groups) <- "bigroup";
   return(groups)
 }
