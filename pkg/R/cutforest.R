@@ -63,12 +63,12 @@ cutforest <- function(b, k = NULL, h = NULL)
   rname = b$row_name[strl$ix]
   if(is.null(rname))
     rname = strl$ix
-  barplot(strl$x, names.arg = rname, las=2, col = heat.colors(12), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
+  barplot(strl$x, names.arg = rname, las=2, col = heat.colors(length(strl$x)), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
   stcl=sort(CI$col_likelihood[1,], method = "shell", index.return = TRUE)
   cname = b$col_name[stcl$ix]
   if(is.null(cname))
     cname = stcl$ix
-  barplot(stcl$x, names.arg = cname, las=2, col = heat.colors(12), main = "columns impact", xlab = "column names", ylab = "Log Bayes factor")
+  barplot(stcl$x, names.arg = cname, las=2, col = heat.colors(length(stcl$x)), main = "columns impact", xlab = "column names", ylab = "Log Bayes factor")
   class(groups) <- "bigroup";
   return(groups)
 }
