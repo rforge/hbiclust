@@ -507,7 +507,6 @@ Forestogramme <- function(size,
 						indices = c(1, 2, 3, 4)
 
 						l = length(row_names) * length(col_names)
-
 						colors = rainbow(l);
 						color_index = 1;
 						ratio = size[1] / size[2];
@@ -551,8 +550,8 @@ Forestogramme <- function(size,
 			
 		}
 		
-
-		#snapshot3d("Test.png")
+		#snapshot3d(file=sprintf("test%s.png",i))
+		#rgl.postscript(file=sprintf("test%s.pdf",i), fmt="pdf")
 	}
 }
 

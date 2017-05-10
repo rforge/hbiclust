@@ -219,7 +219,7 @@ void Agl(int *row_col, int *method, int *merge, double *height, int *dim, int *r
 			rindex[rind[1]]=rClus;
 			rvalid[rind[0]]=false;
 			rsize[rind[1]] = ai+aj;
-			rflag=false;
+			rflag=false;			
 			rClus++;
 		}
 		if(cmin < rmin && cClus<col)
@@ -282,7 +282,7 @@ void Agl(int *row_col, int *method, int *merge, double *height, int *dim, int *r
 			cindex[cind[1]]=cClus;
 			cvalid[cind[0]]=false;
 			csize[cind[1]] = ai+aj;
-			cflag=false;
+			cflag=false;			
 			cClus++;
 		}
 	}

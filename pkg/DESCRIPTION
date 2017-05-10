@@ -1,13 +1,13 @@
 Package: hbiclust
 Type: Package
 Title: Hierarchical Biclustering
-Version: 0.2
-Date: 2015-08-12
-Author: Alexandre ARSENAULT, Sajjad GHAEMI, Vahid PARTOVI NIA
+Version: 0.3
+Date: 2016-11-21
+Author: Sajjad GHAEMI, Alexandre ARSENAULT, Vahid PARTOVI NIA
 Maintainer: Vahid PARTOVI NIA <vahid.partovinia@polymtl.ca>
 Depends: R (>= 3.2.1), rgl
 Description: Build and plot a 2D or a 3D hierarchical biclustering.
 License: GPL (>= 2)
 URL: http://hbiclust.r-forge.r-project.org/
 NeedsCompilation: yes
-Packaged: 2015-08-19 14:54:25 UTC; alex
+Packaged: 2016-11-21 22:04:54 UTC;

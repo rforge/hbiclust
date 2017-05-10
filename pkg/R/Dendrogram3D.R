@@ -68,10 +68,10 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
   trow=row;
   tcol=col;
   while((trow*tcol)>1)
-  {        
+  {
     bc=0;
     if((row_col[i]==0) && (trow>1))
-    {            
+    {
       trow=trow-1;
       rind=cutree(rdend, k=trow);
       cind=cutree(cdend, k=tcol);
@@ -79,16 +79,13 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
       for(ri in 1:max(rind))
         for(ci in 1:max(cind))
         {
-          tdat=data[rind==ri, cind==ci];
-          if(class(tdat)=="matrix")                
-          {                        
-            mns = colMeans(tdat);
-            bc = bc+(sum(sweep(tdat, 2, mns)^2)/nrow(tdat));                        
-          }
+          tdat=as.vector(data[rind==ri, cind==ci])
+          mns = mean(tdat)
+          bc = bc+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
         }
     }
     if((row_col[i]==1) && (tcol>1))
-    {            
+    {
       tcol=tcol-1;
       rind=cutree(rdend, k=trow);
       cind=cutree(cdend, k=tcol);
@@ -96,16 +93,11 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
       for(ri in 1:max(rind))
         for(ci in 1:max(cind))
         {
-          tdat=data[rind==ri, cind==ci];
-          if(class(tdat)=="matrix")                    
-          {
-            mns = rowMeans(tdat);
-            bc = bc+(sum(sweep(tdat, 1, mns)^2)/ncol(tdat));                        
-          }
+          tdat=as.vector(data[rind==ri, cind==ci])
+          mns = mean(tdat)
+          bc = bc+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
         }
     }
-    bc=bc+((trow*tcol)*log10(row*col));
-    #print(c(i, trow, tcol))
     if(bc<minBIC && trow>1 && tcol>1)
     {
       minBIC=bc;
@@ -113,7 +105,62 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
     }        
     i=i+1;        
   }
-  #ch= height[i-2]-3;
   return(ch);
 }
+
+# BIC <- function(data, rdend, cdend, row_col, row, col, height)
+# {
+#   minBIC=1000000000;
+#   i=1;
+#   trow=row;
+#   tcol=col;
+#   while((trow*tcol)>1)
+#   {        
+#     bc=0;
+#     if((row_col[i]==0) && (trow>1))
+#     {            
+#       trow=trow-1;
+#       rind=cutree(rdend, k=trow);
+#       cind=cutree(cdend, k=tcol);
+#       
+#       for(ri in 1:max(rind))
+#         for(ci in 1:max(cind))
+#         {
+#           tdat=data[rind==ri, cind==ci];
+#           if(class(tdat)=="matrix")                
+#           {                        
+#             mns = colMeans(tdat);
+#             bc = bc+(sum(sweep(tdat, 2, mns)^2)/nrow(tdat));                        
+#           }
+#         }
+#     }
+#     if((row_col[i]==1) && (tcol>1))
+#     {            
+#       tcol=tcol-1;
+#       rind=cutree(rdend, k=trow);
+#       cind=cutree(cdend, k=tcol);
+#       
+#       for(ri in 1:max(rind))
+#         for(ci in 1:max(cind))
+#         {
+#           tdat=data[rind==ri, cind==ci];
+#           if(class(tdat)=="matrix")                    
+#           {
+#             mns = rowMeans(tdat);
+#             bc = bc+(sum(sweep(tdat, 1, mns)^2)/ncol(tdat));                        
+#           }
+#         }
+#     }
+#     bc=bc+((trow*tcol)*log10(row*col));
+#     #print(c(i, trow, tcol))
+#     if(bc<minBIC && trow>1 && tcol>1)
+#     {
+#       minBIC=bc;
+#       ch = height[i];
+#     }        
+#     i=i+1;        
+#   }
+#   #ch= height[i-2]-3;
+#   return(ch);
+# }
 

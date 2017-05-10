@@ -55,20 +55,45 @@ cutforest <- function(b, k = NULL, h = NULL)
   else
     col.group <- data.frame(b$col_name, cind)
   
-  CI=clusterimp(b, rind, cind)
+  #CIL=clusterimpBF(b, rind, cind)
+  #CIB=clusterimpact(b, rind, cind)
     
-  groups <- list("Row grouping"=row.group, "Col grouping"= col.group, "Clusters impact"=CI)
+  groups <- list("Row_grouping"=row.group, "Col_grouping"= col.group)
   
-  strl=sort(CI$row_likelihood[1,], method = "shell", index.return = TRUE)
-  rname = b$row_name[strl$ix]
-  if(is.null(rname))
-    rname = strl$ix
-  barplot(strl$x, names.arg = rname, las=2, col = heat.colors(length(strl$x)), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
-  stcl=sort(CI$col_likelihood[1,], method = "shell", index.return = TRUE)
-  cname = b$col_name[stcl$ix]
-  if(is.null(cname))
-    cname = stcl$ix
-  barplot(stcl$x, names.arg = cname, las=2, col = heat.colors(length(stcl$x)), main = "columns impact", xlab = "column names", ylab = "Log Bayes factor")
+  #######################
+  # par(mfrow=c(2,2))
+  # barplot(CIL$row_likelihood[1,], col = heat.colors(length(rind)), main = "rows impact", ylab = "Log Bayes factor")
+  # barplot(CIL$row_likelihood[2,], col = heat.colors(length(rind)), main = "row clusters impact", ylab = "Log Bayes factor")
+  # barplot(CIB$row_likelihood[1,]/sum(CIB$row_likelihood[1,]), col = heat.colors(length(rind)), main = "rows impact", ylab = "between sum of square")
+  # barplot(CIB$row_likelihood[2,]/sum(unique(CIB$row_likelihood[2,])), col = heat.colors(length(rind)), main = "row clusters impact", ylab = "between sum of square")
+  # dev.new()
+  # par(mfrow=c(2,2))
+  # barplot(CIL$col_likelihood[1,], col = heat.colors(length(cind)), main = "cols impact", ylab = "Log Bayes factor")
+  # barplot(CIL$col_likelihood[2,], col = heat.colors(length(cind)), main = "col clusters impact", ylab = "Log Bayes factor")
+  # barplot(CIB$col_likelihood[1,]/sum(CIB$col_likelihood[1,]), col = heat.colors(length(cind)), main = "cols impact", ylab = "between sum of square")
+  # barplot(CIB$col_likelihood[2,]/sum(unique(CIB$col_likelihood[2,])), col = heat.colors(length(cind)), main = "col clusters impact", ylab = "between sum of square")
+  #######################
+  #dev.new()
+  # strl=sort(CI$row_likelihood[1,], method = "shell", index.return = TRUE)
+  # rname = b$row_name[strl$ix]
+  
+  # strlnew=sort(CInew$row_likelihood[1,], method = "shell", index.return = TRUE)
+  # rnamenew = b$row_name[strlnew$ix]
+
+  # if(is.null(rname))
+  #   rname = strl$ix
+  # barplot(strl$x, names.arg = rname, las=2, col = heat.colors(length(strl$x)), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
+
+  # if(is.null(rnamenew))
+  #   rname = strlnew$ix
+  # barplot(strlnew$x, names.arg = rnamenew, las=2, col = heat.colors(length(strl$x)), main = "rows impact", xlab = "row names", ylab = "Log Bayes factor")
+  ##################################################################################################################################
+  # stcl=sort(CI$col_likelihood[1,], method = "shell", index.return = TRUE)
+  # cname = b$col_name[stcl$ix]
+  # if(is.null(cname))
+  #   cname = stcl$ix
+  # barplot(stcl$x, names.arg = cname, las=2, col = heat.colors(length(stcl$x)), main = "columns impact", xlab = "column names", ylab = "Log Bayes factor")
+
   class(groups) <- "bigroup";
   return(groups)
 }

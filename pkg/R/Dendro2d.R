@@ -339,7 +339,7 @@ DrawColNames <- function(size, size_ratio, names, margin)
     {
         x_pos = (i - 1) * x_ratio + half_size + margin[2];
         
-        text(x_pos, y_pos, labels=names[i], cex=0.5, srt=90);
+        text(x_pos, y_pos, labels=names[i], cex=0.5, srt=270);
     }
 }
 
@@ -355,8 +355,8 @@ hbiclust.plot <- function(clust_info,
     margin = c(0.07, 0.04);
     size = clust_info$dim;
 
-    DrawRowNames(size, size_ratio, clust_info$row_name, margin);
-    DrawColNames(size, size_ratio, clust_info$col_name, margin);
+    DrawRowNames(size, size_ratio, clust_info$row_name[clust_info$row_order], margin);
+    DrawColNames(size, size_ratio, clust_info$col_name[clust_info$col_order], margin);
     
     # Split row and column data info.
     merge_info = SplitVectors(size, 
