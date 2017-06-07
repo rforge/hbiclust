@@ -45,7 +45,7 @@ hbiclust <-function(x, method="ward")
                "method"=method,
                "dist.method"="euclidean");
   class(cdend)<-"hclust";
-  ch=BIC(data, rdend, cdend, b$row_col, row, col, b$height)
+  FIC=FORIC(data, rdend, cdend, b$row_col, row, col, b$height)
   remove(b)
   hbi <- list("row_col" = as.numeric(out$row_col),
             "merge" = matrix(as.numeric(out$merge), nrow=(row+col-2),ncol=2,byrow=FALSE),
@@ -56,20 +56,22 @@ hbiclust <-function(x, method="ward")
             "row_name" = rownames(data),
             "col_name" = colnames(data),
             "data" = data,
-            "hcut"=ch);
+            "hcut"=FIC[[1]],
+            "foric" = FIC[[2]])
   
   class(hbi) <- "hbiclust";
   return(hbi)
 }
-BIC <- function(data, rdend, cdend, row_col, row, col, height)
+FORIC <- function(data, rdend, cdend, row_col, row, col, height)
 {
   minBIC=1000000000;
   i=1;
   trow=row;
   tcol=col;
+  bc=vector()
   while((trow*tcol)>1)
   {
-    bc=0;
+    bc[i]=0;
     if((row_col[i]==0) && (trow>1))
     {
       trow=trow-1;
@@ -81,7 +83,7 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
         {
           tdat=as.vector(data[rind==ri, cind==ci])
           mns = mean(tdat)
-          bc = bc+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
+          bc[i] = bc[i]+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
         }
     }
     if((row_col[i]==1) && (tcol>1))
@@ -95,17 +97,17 @@ BIC <- function(data, rdend, cdend, row_col, row, col, height)
         {
           tdat=as.vector(data[rind==ri, cind==ci])
           mns = mean(tdat)
-          bc = bc+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
+          bc[i] = bc[i]+(sum((tdat-mns)^2)/length(tdat))+log10(length(tdat)+1)
         }
     }
-    if(bc<minBIC && trow>1 && tcol>1)
+    if(bc[i]<minBIC && trow>1 && tcol>1)
     {
-      minBIC=bc;
+      minBIC=bc[i];
       ch = height[i];
     }        
     i=i+1;        
   }
-  return(ch);
+  return(list(ch, bc))
 }
 
 # BIC <- function(data, rdend, cdend, row_col, row, col, height)
